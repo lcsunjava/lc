@@ -58,10 +58,12 @@ public class JDBCTest {
 			System.out.println("总记录数:" + rowscount);
 			System.out.println("总页数:" + pagecount);
 			System.out.println("---------------");
-			while(rs.next()){
-				System.out.println(rs.getString("ename")+":"+rs.getString("rn"));				
+			while(rs.next()) {
+				System.out.println(rs.getString("ename") + ":" + rs.getString("rn"));
 			}
-			
+
+
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
