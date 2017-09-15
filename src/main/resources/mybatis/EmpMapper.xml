@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.mapper.EmpMapper">
+	<!-- 设置二级缓存 -->
+	<!-- <cache /> -->
+	
+	<select id="getEmpByNo" parameterType="Integer" resultType="cn.tedu.pojo.Emp" flushCache="true">
+		select * from emp02 where empno=#{empno}
+	</select>
+	
+	<delete id="deleteEmpByNo" parameterType="Integer">
+		delete from emp02 where empno=#{empno}
+	</delete>
+
+	<select id="findPagination" parameterMap="getPageMap" statementType="CALLABLE">
+		call fenye(?,?,?,?,?)
+	</select>
+		
+	<parameterMap type="java.util.Map" id="getPageMap">
+		<parameter property="pagenow" mode="IN" jdbcType="INTEGER"/>
+		<parameter property="pagesizes" mode="IN" jdbcType="INTEGER"/>
+		<parameter property="countsizes" mode="OUT" jdbcType="INTEGER"/>
+		<parameter property="countpages" mode="OUT" jdbcType="INTEGER"/>
+		<parameter property="cur" mode="OUT" jdbcType="CURSOR" resultMap="cursorMap"/>
+	</parameterMap>
+	
+	<resultMap type ="java.util.HashMap" id="cursorMap">   
+	</resultMap > 
+	
+	
+	<select id="getManager" parameterMap="getM" statementType="CALLABLE">
+		call getManager(?,?)
+	</select>
+	
+	<parameterMap type="java.util.Map" id="getM">
+		<parameter property="ename" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="mname" mode="OUT" jdbcType="VARCHAR"/>
+	</parameterMap>
+</mapper>
